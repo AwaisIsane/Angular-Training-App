@@ -1,0 +1,81 @@
+<div  class="output-area">
+    <div *ngFor="let cr of dispCryp" class="card-element" > 
+        <mat-tab-group mat-align-tabs="start">
+            <mat-tab [label]="cryp.currName"  *ngFor="let cryp of cr">
+        <mat-card class="example-card">
+            <mat-card-header>
+            <mat-card-title> {{datecnvrt(cryp.time)|date:"dd MMMM yyyy"}}{{cryp.currName}}</mat-card-title>
+            </mat-card-header>
+        <mat-list>
+    
+        <mat-list-item>
+         high: {{cryp.high|currency : "USD"}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+         <mat-list-item>
+         low: {{cryp.low}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+         <mat-list-item>
+         open: {{cryp.open}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+         <mat-list-item>
+         volumefrom: {{cryp.volumefrom}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+         <mat-list-item>
+         volumeto: {{cryp.volumeto}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+         <mat-list-item>
+         close: {{cryp.close}}
+         </mat-list-item>  <mat-divider></mat-divider>
+    
+    
+         </mat-list>
+         </mat-card>
+         </mat-tab>
+         </mat-tab-group>
+         </div>
+    </div>
+<!-- <div *ngFor="let cryp of cryptos" class="card-element" > 
+    <mat-card class="example-card">
+        <mat-card-header>
+        <mat-card-title> {{datecnvrt(cryp.time)|date:"dd MMMM yyyy"}}{{cryp.currName}}</mat-card-title>
+        </mat-card-header>
+    <mat-list>
+
+    <mat-list-item>
+     high: {{cryp.high|currency : "USD"}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+     <mat-list-item>
+     low: {{cryp.low}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+     <mat-list-item>
+     open: {{cryp.open}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+     <mat-list-item>
+     volumefrom: {{cryp.volumefrom}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+     <mat-list-item>
+     volumeto: {{cryp.volumeto}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+     <mat-list-item>
+     close: {{cryp.close}}
+     </mat-list-item>  <mat-divider></mat-divider>
+
+
+     </mat-list>
+     </mat-card>
+     </div>
+</div> -->
+<!-- <div >
+    <button (click)="fillDispCryp(cryptos)">load</button>
+</div> -->
+
