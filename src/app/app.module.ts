@@ -17,12 +17,18 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatChipsModule} from '@angular/material/chips';
 import { MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { LandingpageComponent } from './landingpage/landingpage.component';
+import { FeaturesComponent } from './features/features.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DispcardComponent,
-    CryptodisplayComponent
+    CryptodisplayComponent,
+    ErrorpageComponent,
+    LandingpageComponent,
+    FeaturesComponent
   ],
   imports: [
     BrowserModule,

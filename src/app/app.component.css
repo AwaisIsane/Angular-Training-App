@@ -1,3 +1,13 @@
-h1 {
-    background: green;
+.spnLink {
+    padding: 15px 10px;
 }
+
+.spnLinkF {
+    background: whitesmoke;
+    color: black;
+    padding: 16px 10px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }

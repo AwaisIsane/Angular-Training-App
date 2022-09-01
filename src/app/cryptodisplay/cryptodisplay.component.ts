@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cryptodata,CryptoDataall } from '../cryptodata';
 import { CryptoService } from '../crypto.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,10 +12,12 @@ import { CryptoService } from '../crypto.service';
 export class CryptodisplayComponent implements OnInit {
   cryptosall:CryptoDataall [] = []
   currencyList: string [] = ['BTC']
+  currencyListD:string [] = ['BTC','ETH']
   dispCryp:Cryptodata [][] = []
   errMessage:string = ""
   isDisabled = "true"
-
+  limitV:string = ""
+  currCompare:string = "USD"
   onSelectChange(fsym:string) {
     this.currencyList.push(fsym)
   }
@@ -92,7 +95,22 @@ export class CryptodisplayComponent implements OnInit {
   }
 
   
-  constructor(private cryptosrv:CryptoService) { }
+  constructor(private cryptosrv:CryptoService,private router:ActivatedRoute ) {
+    this.router.queryParams.subscribe(
+      (params)=> {
+        if(params['currency']) {
+         
+        this.currencyList = params['currency'].split(",")
+        }
+        this.limitV = params['limit']
+        if(params["currency"],params["limit"]){
+          this.isDisabled = "false"
+          this.callCryptoData(this.currCompare,this.limitV)
+        }
+        
+      }
+    )
+   }
 
   ngOnInit(): void {
   }

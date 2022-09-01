@@ -1,4 +1,20 @@
-<app-cryptodisplay>
-  
-</app-cryptodisplay>
+<nav>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row >
+            <span  routerLink="" routerLinkActive="active">BTC Calculator</span>
+            
+          <span  routerLink="/features" routerLinkActive="active" [class.spnLink]="routerUrl!='/features'" [class.spnLinkF]="routerUrl=='/features'">
+            API features
+          </span>
+            <span routerLink="/histodata" routerLinkActive="active" [class.spnLink]="routerUrl!='/histodata'" [class.spnLinkF]="routerUrl=='/histodata'">
+                History 
+            </span>
+            <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="" routerLinkActive="active">
+    <mat-icon>home</mat-icon>
+  </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</nav>
+<router-outlet></router-outlet>
   
