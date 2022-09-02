@@ -8,7 +8,7 @@ import { Cryptodata } from '../cryptodata';
 })
 export class DispcardComponent implements OnInit {
   @Input() cryptos:Cryptodata [] = []
-  @Input() dispCryp:any [] = []
+  @Input() dispCryp:Cryptodata [][] = []
 
   datecnvrt(unixtime:number):Date {
     let d = new Date(unixtime*1000)

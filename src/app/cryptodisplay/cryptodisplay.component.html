@@ -8,8 +8,7 @@
 <mat-form-field appearance="fill" >
 <mat-label>Crypto</mat-label>
 <select #fsym matNativeControl required (change)="onSelectChange(fsym.value)">
-    <option value="BTC">BTC</option>
-    <option value="ETH">ETH</option>
+    <option [value]="cur" *ngFor="let cur of currencyListD">{{cur}}</option>
 </select>
 </mat-form-field>
 <mat-chip-list aria-label="Currency selection">

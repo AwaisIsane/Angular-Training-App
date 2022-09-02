@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cryptodata,CryptoDataall } from '../cryptodata';
 import { CryptoService } from '../crypto.service';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, observable } from 'rxjs';
 
 
 @Component({
@@ -10,10 +11,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cryptodisplay.component.css']
 })
 export class CryptodisplayComponent implements OnInit {
-  cryptosall:CryptoDataall [] = []
+  // cryptosall:observable<CryptoDataall> [] = []
   currencyList: string [] = ['BTC']
-  currencyListD:string [] = ['BTC','ETH']
-  dispCryp:Cryptodata [][] = []
+  currencyListD:string [] = ['BTC','ETH','LUNA','MATIC','SOL','BNB','XRP','LUNC']
+   dispCryp:Cryptodata [][] = []
+  //dispCryp!:Observable<Cryptodata [][]> 
   errMessage:string = ""
   isDisabled = "true"
   limitV:string = ""
@@ -29,17 +31,13 @@ export class CryptodisplayComponent implements OnInit {
     }}
 
   dispdat(data:any,fsym:string) {
-    let dta = data["Data"]
-    this.cryptosall.push(dta)
 
-    dta.Data.forEach((element:Cryptodata) => {
-
+    data.forEach((element:Cryptodata) => {
       this.fillDispCryp({...element,currName:fsym})
     });
      
   }
   fillDispCryp(data:Cryptodata ) {
-   
       const objT = data.time
       const obj = {...data}
         let chck = true
@@ -60,8 +58,8 @@ export class CryptodisplayComponent implements OnInit {
   callCryptoData (tsym:string,limit:string) {
     if ((this.currencyList.length>0)&& limit&&Number(limit)) {
     this.errMessage = ""
-    this.cryptosall = []
-    this.dispCryp = []
+
+   this.dispCryp = []
     this.currencyList.forEach((ele)=> {
       this.getCryptosdata(ele,tsym,limit)})
     }
