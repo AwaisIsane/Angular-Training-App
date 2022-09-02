@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map,Observable } from 'rxjs';
 import { Coinsdata } from './coinsdata';
+import { Caldata } from './caldata';
 
 
 
@@ -19,6 +20,21 @@ export class CryptoService {
                               return response})
     )
   }
+  getCoinsCalcData():Observable<Caldata []> {
+    const apiUrl:string = `${this.geckoUrl}/exchange_rates`
+    console.log("api",apiUrl)
+    return this.httpSrv.get<object>(apiUrl).pipe(
+      map((response:any)=>{
+                              let a = response.rates
+                              let arr:Caldata [] = []
+                               Object.keys(a).forEach((element:string) => {
+                                arr.push(a[element])
+                              });
+                             return arr;
+                            }
+    ))
+  }
+
   fetchData(apiUrl:string):Observable<object> {
     return this.httpSrv.get<object>(apiUrl).pipe(
       map((response:any) => response["Data"]["Data"])
