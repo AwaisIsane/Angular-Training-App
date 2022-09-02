@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Cryptodata,CryptoDataall } from '../cryptodata';
+import { Cryptodata } from '../cryptodata';
 import { CryptoService } from '../crypto.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, observable } from 'rxjs';
+// import { Observable, observable } from 'rxjs';
 
 
 @Component({

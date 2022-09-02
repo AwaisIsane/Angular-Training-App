@@ -1,14 +1,17 @@
 <nav>
     <mat-toolbar color="primary">
         <mat-toolbar-row >
-            <span  routerLink="" routerLinkActive="active">BTC Calculator</span>
+            <span  routerLink="" routerLinkActive="active">Crypto Dashboard</span>
             
-          <span  routerLink="/features" routerLinkActive="active" [class.spnLink]="routerUrl!='/features'" [class.spnLinkF]="routerUrl=='/features'">
-            API features
+          <span  routerLink="/current" routerLinkActive="active" [class.spnLink]="routerUrl!='/current'" [class.spnLinkF]="routerUrl=='/current'">
+            Current
           </span>
             <span routerLink="/histodata" routerLinkActive="active" [class.spnLink]="routerUrl!='/histodata'" [class.spnLinkF]="routerUrl=='/histodata'">
                 History 
             </span>
+            <span routerLink="/btccalc" routerLinkActive="active" [class.spnLink]="routerUrl!='/btccalc'" [class.spnLinkF]="routerUrl=='/btccalc'">
+              BTC Calculator 
+          </span>
             <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="" routerLinkActive="active">
     <mat-icon>home</mat-icon>

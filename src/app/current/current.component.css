@@ -1,0 +1,22 @@
+table {
+    width: 100%;
+  }
+.green-text {
+    color: green;
+}
+.red-text {
+    color: red;
+}
+.info-icon {
+    max-width: 25px;
+    max-height: 25px;
+    vertical-align: middle;
+}
+.coin-image {
+    vertical-align: middle;
+}
+
+th {
+    font-size: medium;
+    color:rgb(59, 58, 58);
+}

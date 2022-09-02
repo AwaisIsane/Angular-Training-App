@@ -19,7 +19,10 @@ import { MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
-import { FeaturesComponent } from './features/features.component';
+import { CurrentComponent } from './current/current.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { FeaturesComponent } from './features/features.component';
     CryptodisplayComponent,
     ErrorpageComponent,
     LandingpageComponent,
-    FeaturesComponent
+    CurrentComponent,
+    CalculatorbtcComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,9 @@ import { FeaturesComponent } from './features/features.component';
     MatToolbarModule,
     MatChipsModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
