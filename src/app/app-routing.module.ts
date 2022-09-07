@@ -8,9 +8,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './login/login.component';
+import { RegistrationformComponent } from './registrationform/registrationform.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
+  {path:'register',component:RegistrationformComponent},
   {path:'',component:DashboardComponent,canActivate:[AuthGuard],children:[
    {path:"",pathMatch:'full',component:LandingpageComponent},
   {path:"histodata",component:CryptodisplayComponent},

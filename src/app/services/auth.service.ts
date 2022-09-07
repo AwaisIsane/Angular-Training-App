@@ -23,7 +23,7 @@ export class AuthService {
 
   login(username:string|null,password:string|null): Observable<string> {
     const url = `http://localhost:3000/employees?email=${username}`;
-    return this.httpSrv.get<object>(url).pipe(
+    return this.httpSrv.get<any>(url).pipe(
       map((response:any)=>{
                               if(response.length>0) {
                                       const res = response[0]

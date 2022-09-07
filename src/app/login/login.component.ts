@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
       return 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
     }
     onSubmit() {
+      console.log("redirecting")
+      this.router.navigate(['/register'])
       
     }
   

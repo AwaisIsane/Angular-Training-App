@@ -6,7 +6,7 @@
 <form [formGroup]="loginform" (ngSubmit)="login()">
   <p>
     <mat-form-field>
-      <input type="text" matInput placeholder="Username" formControlName="username">
+      <input type="text" matInput placeholder="email" formControlName="username">
     </mat-form-field>
   </p>
 
@@ -21,11 +21,12 @@
   </p>
 
   <div class="button">
-    <button type="submit" mat-button>Login</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="loginform.invalid">Login</button>
   </div>
 
 </form>
 </mat-card-content>
+<div class="button">
+  <button mat-raised-button type="button" color="primary" (click)="onSubmit()">register</button>
+</div>
 </mat-card>
-`
-</p>

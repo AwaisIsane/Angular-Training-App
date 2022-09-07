@@ -27,6 +27,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
+import { RegistrationformComponent } from './registrationform/registrationform.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {MatMenuModule} from '@angular/material/menu';
     CurrentComponent,
     CalculatorbtcComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    RegistrationformComponent
   ],
   imports: [
     BrowserModule,

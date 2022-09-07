@@ -1,4 +1,3 @@
-import { getLocaleDateFormat } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Logindata } from '../logindata';
