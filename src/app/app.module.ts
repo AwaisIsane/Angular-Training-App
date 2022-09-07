@@ -23,7 +23,9 @@ import { CurrentComponent } from './current/current.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component';
-
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,11 +34,14 @@ import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component'
     ErrorpageComponent,
     LandingpageComponent,
     CurrentComponent,
-    CalculatorbtcComponent
+    CalculatorbtcComponent,
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatCardModule,

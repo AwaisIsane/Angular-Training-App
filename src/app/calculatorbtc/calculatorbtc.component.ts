@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Caldata } from '../caldata';
-import { CryptoService } from '../crypto.service';
+import { CryptoService } from '../services/crypto.service';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({

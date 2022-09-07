@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable} from 'rxjs';
 import { Coinsdata } from '../coinsdata';
-import { CryptoService } from '../crypto.service';
+import { CryptoService } from '../services/crypto.service';
 
 @Component({
   selector: 'app-current',

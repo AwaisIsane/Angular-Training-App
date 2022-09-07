@@ -1,4 +1,4 @@
-<!-- <nav>
+<nav>
     <mat-toolbar color="primary">
         <mat-toolbar-row >
             <span  routerLink="" routerLinkActive="active">Crypto Dashboard</span>
@@ -16,7 +16,13 @@
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="" routerLinkActive="active">
     <mat-icon>home</mat-icon>
   </button>
+  <!-- <span routerLink="/login" routerLinkActive="active" [class.spnLink]="routerUrl!='/login'" [class.spnLinkF]="routerUrl=='/login'">
+    login/out 
+</span> -->
+<button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
+  <mat-icon>logout</mat-icon>
+</button>
         </mat-toolbar-row>
     </mat-toolbar>
-</nav>-->
-<router-outlet></router-outlet> 
+</nav>
+<router-outlet></router-outlet>

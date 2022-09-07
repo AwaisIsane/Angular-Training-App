@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map,Observable } from 'rxjs';
-import { Coinsdata } from './coinsdata';
-import { Caldata } from './caldata';
+import { Coinsdata } from '../coinsdata';
+import { Caldata } from '../caldata';
 
 
 
