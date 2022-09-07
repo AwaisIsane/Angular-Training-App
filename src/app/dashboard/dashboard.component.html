@@ -19,9 +19,16 @@
   <!-- <span routerLink="/login" routerLinkActive="active" [class.spnLink]="routerUrl!='/login'" [class.spnLinkF]="routerUrl=='/login'">
     login/out 
 </span> -->
-<button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
+<!-- <button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
   <mat-icon>logout</mat-icon>
-</button>
+</button> -->
+<button mat-button [matMenuTriggerFor]="menu">{{sessionData.email}}<mat-icon>keyboard_arrow_down</mat-icon></button>
+<mat-menu #menu="matMenu">
+  <button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
+    <mat-icon>logout</mat-icon>Logout
+  </button>
+  <!-- <button mat-menu-item>Item 2</button> -->
+</mat-menu>
         </mat-toolbar-row>
     </mat-toolbar>
 </nav>

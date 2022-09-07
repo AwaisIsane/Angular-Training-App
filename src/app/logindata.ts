@@ -3,6 +3,7 @@ export interface Logindata {
     email: string,
     fname: string,
     lname: string,
-    password: string
+    password: string,
+    loggedin:boolean,
 
 }
