@@ -1,22 +1,24 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Caldata } from '../caldata';
 import { CryptoService } from '../services/crypto.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calculatorbtc',
   templateUrl: './calculatorbtc.component.html',
   styleUrls: ['./calculatorbtc.component.css']
 })
-export class CalculatorbtcComponent implements OnInit,AfterViewInit {
+export class CalculatorbtcComponent implements OnInit,AfterViewInit,OnDestroy {
   //save state to not to call api again and again since it returns same data
   calcdata:Caldata [] = []
   displayedColumns: string[] = ['name','unit','value','type']
 
   listAvailableCurr :string [] = []
   isReady:boolean = false
+  coinsSubscription !: Subscription;
   dataSource =  new MatTableDataSource()
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,7 +43,7 @@ export class CalculatorbtcComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit(): void {
-   this.cryptosrv.getCoinsCalcData().subscribe({
+   this.coinsSubscription = this.cryptosrv.getCoinsCalcData().subscribe({
       next:(data) =>this.calcdata=data,
 
       error : (error) => {console.error(error)},
@@ -53,5 +55,7 @@ export class CalculatorbtcComponent implements OnInit,AfterViewInit {
       }
     })
   }
-
+  ngOnDestroy(): void {
+    this.coinsSubscription.unsubscribe()
+  }
 }
