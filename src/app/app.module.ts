@@ -16,6 +16,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationformComponent } from './registrationform/registrationform.component';
 import { MaterialModule } from './material/material.module';
+import { DraglistComponent } from './draglist/draglist.component';
+import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MaterialModule } from './material/material.module';
     CalculatorbtcComponent,
     LoginComponent,
     DashboardComponent,
-    RegistrationformComponent
+    RegistrationformComponent,
+    DraglistComponent,
+    FullcalendarComponent
   ],
   imports: [
     BrowserModule,

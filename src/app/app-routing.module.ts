@@ -5,6 +5,7 @@ import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component'
 import { CryptodisplayComponent } from './cryptodisplay/cryptodisplay.component';
 import { CurrentComponent } from './current/current.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DraglistComponent } from './draglist/draglist.component';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './login/login.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:"histodata",component:CryptodisplayComponent},
   {path:"current",component:CurrentComponent},
   {path:"btccalc",component:CalculatorbtcComponent},
+  {path:'users',component:DraglistComponent},
   {path:"**",component:ErrorpageComponent}]
 }
 ];

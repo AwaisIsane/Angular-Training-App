@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, delay, map, Observable, of, retry, retryWhen, take, tap } from 'rxjs';
+import { catchError, delay, map, Observable, of, retry,  Subject, take, tap, throwError } from 'rxjs';
 import { Logindata } from '../logindata';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Logindata } from '../logindata';
 })
 export class AuthService {
   isLoggedIn = false;
-  isError = ""
+  error = new Subject<string>()
   sessionData:Logindata = {
                             id:"",
                             email:"",
@@ -41,6 +41,7 @@ export class AuthService {
                                                        }; return res.password==password?"true":"wrong passwrd"}
                             return "wrong username"
                           })
+        , catchError((err)=>{this.error.next(err.message);return throwError(()=> new Error(err.message))})
                              
     )
   }
@@ -48,6 +49,11 @@ export class AuthService {
   logout(): void {
     console.log("logged out")
     this.isLoggedIn = false;
+  }
+
+  getAll():Observable<Logindata[]>{
+    const url = `http://localhost:3000/employees`;
+    return this.httpSrv.get<any>(url)
   }
   //constructor() { }
   constructor(private httpSrv:HttpClient) { }
