@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, Subject } from 'rxjs';
 import { RegisterData } from '../register-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
+  error = new Subject<string>()
   check(username:string): Observable<boolean> {
     const url = `http://localhost:3000/employees?email=${username}`;
     return this.httpSrv.get<any>(url).pipe(
@@ -22,6 +23,7 @@ export class RegisterService {
     const url = `http://localhost:3000/employees/`
     return this.httpSrv.post(url,register,httpOptions).pipe(
       map((response:any)=>{console.log("POST",response);return "success"})
+   //   
     )
   }
   constructor(private httpSrv:HttpClient) { }
