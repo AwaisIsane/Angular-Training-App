@@ -7,12 +7,14 @@
   <p>
     <mat-form-field>
       <input type="text" matInput placeholder="email" formControlName="username">
+      <mat-error *ngIf="loginform.controls.username.invalid">{{getErrorMessageUsername()}}</mat-error>
     </mat-form-field>
   </p>
 
   <p>
     <mat-form-field>
       <input type="password" matInput placeholder="Password" formControlName="password">
+      <mat-error *ngIf="loginform.controls.password.invalid">{{getErrorMessagePassword()}}</mat-error>
     </mat-form-field>
   </p>
 

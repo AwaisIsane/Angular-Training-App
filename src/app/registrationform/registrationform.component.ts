@@ -13,7 +13,7 @@ export class RegistrationformComponent implements OnInit {
   error:string = ""
   regform = this.fb.group({
     username : ["",[Validators.email,Validators.required]],
-    password : ["",[Validators.required]],
+    password : ["",[Validators.required,Validators.minLength(4)]],
     fname:     [""],
     lname:     [""]
     })
@@ -38,6 +38,19 @@ export class RegistrationformComponent implements OnInit {
         }
       })
     }
+  }
+
+  getErrorMessageUsername():string {
+    if (this.regform.controls["username"].hasError('required')) {
+      return 'You must enter a value';
+    }
+    return 'email format not proper'
+  }
+  getErrorMessagePassword():string {
+    if (this.regform.controls["password"].hasError('minlength')) {
+      return 'must have min len 4';
+    }
+    return 'password required'
   }
   constructor(public regService: RegisterService, public router: Router,private fb: FormBuilder) { }
 
