@@ -18,6 +18,7 @@ import { RegistrationformComponent } from './registrationform/registrationform.c
 import { MaterialModule } from './material/material.module';
 import { DraglistComponent } from './draglist/draglist.component';
 import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -33,7 +34,8 @@ import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
     DashboardComponent,
     RegistrationformComponent,
     DraglistComponent,
-    FullcalendarComponent
+    FullcalendarComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

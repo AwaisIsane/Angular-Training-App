@@ -16,7 +16,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 
@@ -37,7 +37,8 @@ const materialComponents = [
   MatPaginatorModule,
   MatSortModule,
   MatSnackBarModule,
-  DragDropModule
+  DragDropModule,
+  MatDialogModule
 
                           ];
 

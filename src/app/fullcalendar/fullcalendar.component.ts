@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CalendarOptions, defineFullCalendarElement } from '@fullcalendar/web-component';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { CalendarOptions, defineFullCalendarElement, FullCalendarElement} from '@fullcalendar/web-component';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { EventService } from '../services/event.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+
+
 defineFullCalendarElement();
 
 @Component({
@@ -10,29 +15,88 @@ defineFullCalendarElement();
   styleUrls: ['./fullcalendar.component.css']
 })
 export class FullcalendarComponent implements OnInit {
-
+ 
+  @ViewChild('calendar') calendarRef!: ElementRef<FullCalendarElement>;
+  CalendarApi:any;
   events:any  = []
-  calendarOptions: CalendarOptions = {
+   calendarOptions: CalendarOptions= {
     plugins: [dayGridPlugin,interactionPlugin],
-    events:this.events,
     weekends: true, // initial value
     editable: true,
     dateClick: this.onDateClick.bind(this),
     selectable: true,
     selectMirror: true,
-    dayMaxEvents: true
+    dayMaxEvents: true,
+    
   };
 
-  addevent() {
+  ngAfterViewInit() {
+    this.CalendarApi = this.calendarRef.nativeElement.getApi();
+    this.CalendarApi.next();
+    // this.eventssrv.getAllEvents('awais@testmail.com').subscribe(
+    //    (res)=>{
+    //     res.forEach((element:any) => {
+    //       console.log("here",element)
+    //       this.CalendarApi.addEvent(element)
+    //     });
+    //    })
+    // this.events.array
+  } 
 
-  }
   onDateClick(res: any) {
-    console.log('Clicked on date : ' + res.dateStr);
-   // res.addevent({title:"hello world"})
+  
+    let obj = {title:"",start:res.dateStr,end:res.dateStr} 
+    console.log(res.dateStr)
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: obj,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      obj = result;
+      this.events.push(obj)
+      this.calendarOptions.events = this.events;
+      this.eventssrv.addEvent('Fxy1x7f',this.events).subscribe(()=> this.CalendarApi.addEvent(obj) )
+    });
   }
-  constructor() { }
-
+  constructor(private eventssrv:EventService,public dialog: MatDialog) { }
+  
+  
   ngOnInit(): void {
+    this.eventssrv.getAllEvents('awais@testmail.com').subscribe(
+    (res)=>{
+        this.events = res;
+        console.log(res)
+        this.calendarOptions= {
+    plugins: [dayGridPlugin,interactionPlugin],
+    weekends: true, // initial value
+    editable: true,
+    dateClick: this.onDateClick.bind(this),
+    selectable: true,
+    selectMirror: true,
+    dayMaxEvents: true,
+    events:this.events,
+    
+  };
+     }
+ )
   }
 
 }
+
+// @Component({
+//   selector: 'dialog-overview-example-dialog',
+//   templateUrl: 'dialog-overview-example-dialog.html',
+// })
+// export class DialogOverviewExampleDialog {
+//   constructor(
+//     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+//     @Inject(MAT_DIALOG_DATA) public data: any,
+//   ) {}
+
+//   onNoClick(): void {
+//     this.dialogRef.close();
+//   }
+// }
+
+
