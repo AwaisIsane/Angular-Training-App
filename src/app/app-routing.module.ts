@@ -15,11 +15,12 @@ import { RegistrationformComponent } from './registrationform/registrationform.c
 const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegistrationformComponent},
-  {path:'calendar',component:FullcalendarComponent},
+  // {path:'calendar',component:FullcalendarComponent},
   {path:'',component:DashboardComponent,canActivate:[AuthGuard],children:[
    {path:"",pathMatch:'full',component:LandingpageComponent},
   {path:"histodata",component:CryptodisplayComponent},
   {path:"current",component:CurrentComponent},
+  {path:'calendar',component:FullcalendarComponent},
   {path:"btccalc",component:CalculatorbtcComponent},
   {path:'users',component:DraglistComponent},
   {path:"**",component:ErrorpageComponent}]

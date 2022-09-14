@@ -45,8 +45,7 @@ export class FullcalendarComponent implements OnInit {
 
   onDateClick(res: any) {
   
-    let obj = {title:"",start:res.dateStr,end:res.dateStr} 
-    console.log(res.dateStr)
+    let obj = {title:"",start:res.dateStr,end:""} 
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
       data: obj,
@@ -54,10 +53,20 @@ export class FullcalendarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       obj = result;
+      if(result){
       this.events.push(obj)
       this.calendarOptions.events = this.events;
-      this.eventssrv.addEvent('Fxy1x7f',this.events).subscribe(()=> this.CalendarApi.addEvent(obj) )
+      this.eventssrv.addEvent('Fxy1x7f',this.events).subscribe(()=> this.CalendarApi.addEvent(obj) )}
     });
+  }
+  eventClick(res:any) {
+    console.log(res.event.end)
+    let obj = {title:res.event.title,start:res.event.startStr,end:res.event.endStr} 
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data: obj,
+    });
+    dialogRef.afterClosed().subscribe((res)=>console.log("edit functionality not implementede",res))
   }
   constructor(private eventssrv:EventService,public dialog: MatDialog) { }
   
@@ -69,6 +78,14 @@ export class FullcalendarComponent implements OnInit {
         console.log(res)
         this.calendarOptions= {
     plugins: [dayGridPlugin,interactionPlugin],
+    headerToolbar:{
+            right: 'prev,next,today',
+
+      center: 'title',
+
+      left: 'dayGridMonth,dayGridWeek,dayGridDay'
+                    },
+    eventClick:this.eventClick.bind(this),
     weekends: true, // initial value
     editable: true,
     dateClick: this.onDateClick.bind(this),
