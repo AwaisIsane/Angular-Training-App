@@ -8,9 +8,8 @@ describe('CalculatorbtcComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CalculatorbtcComponent ]
-    })
-    .compileComponents();
+      declarations: [CalculatorbtcComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CalculatorbtcComponent);
     component = fixture.componentInstance;

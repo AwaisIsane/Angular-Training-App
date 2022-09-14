@@ -8,9 +8,8 @@ describe('FullcalendarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FullcalendarComponent ]
-    })
-    .compileComponents();
+      declarations: [FullcalendarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FullcalendarComponent);
     component = fixture.componentInstance;

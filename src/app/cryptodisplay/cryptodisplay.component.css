@@ -1,13 +1,12 @@
 .flex-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
- .class-field {
-    display: block
- }
-
+.class-field {
+  display: block;
+}
 
 mat-card-title {
-    color: azure;
-    background: blue    ;
+  color: azure;
+  background: blue;
 }

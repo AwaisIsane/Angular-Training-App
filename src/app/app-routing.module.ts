@@ -13,22 +13,27 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationformComponent } from './registrationform/registrationform.component';
 
 const routes: Routes = [
-  {path:'login',component:LoginComponent},
-  {path:'register',component:RegistrationformComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationformComponent },
   // {path:'calendar',component:FullcalendarComponent},
-  {path:'',component:DashboardComponent,canActivate:[AuthGuard],children:[
-   {path:"",pathMatch:'full',component:LandingpageComponent},
-  {path:"histodata",component:CryptodisplayComponent},
-  {path:"current",component:CurrentComponent},
-  {path:'calendar',component:FullcalendarComponent},
-  {path:"btccalc",component:CalculatorbtcComponent},
-  {path:'users',component:DraglistComponent},
-  {path:"**",component:ErrorpageComponent}]
-}
+  {
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', pathMatch: 'full', component: LandingpageComponent },
+      { path: 'histodata', component: CryptodisplayComponent },
+      { path: 'current', component: CurrentComponent },
+      { path: 'calendar', component: FullcalendarComponent },
+      { path: 'btccalc', component: CalculatorbtcComponent },
+      { path: 'users', component: DraglistComponent },
+      { path: '**', component: ErrorpageComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

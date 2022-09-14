@@ -1,11 +1,11 @@
 .card-element {
-    padding: 10px;
+  padding: 10px;
 }
 mat-card-title {
-    color: azure;
-    background: blue    ;
+  color: azure;
+  background: blue;
 }
 .output-area {
-    display: flex;
-    flex-flow: row wrap;
+  display: flex;
+  flex-flow: row wrap;
 }

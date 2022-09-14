@@ -1,20 +1,26 @@
 <h1 mat-dialog-title>Hi</h1>
 <div mat-dialog-content>
   <p>Enter event details</p>
-    <mat-form-field appearance="fill">
-      <mat-label>title</mat-label>
-       <input matInput #title [defaultValue]="data.title"> 
-    </mat-form-field>
-    <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill">
+    <mat-label>title</mat-label>
+    <input matInput #title [defaultValue]="data.title" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
     <mat-label>START</mat-label>
-     <input matInput #start [defaultValue]="data.start"> 
+    <input matInput #start [defaultValue]="data.start" />
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>end</mat-label>
-     <input matInput #end [defaultValue]="data.end"> 
+    <input matInput #end [defaultValue]="data.end" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="onSend(start.value,end.value,title.value)" cdkFocusInitial>Ok</button>
+  <button
+    mat-button
+    [mat-dialog-close]="onSend(start.value, end.value, title.value)"
+    cdkFocusInitial
+  >
+    Ok
+  </button>
 </div>

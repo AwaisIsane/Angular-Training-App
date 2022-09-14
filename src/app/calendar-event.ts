@@ -1,2 +1,1 @@
-export interface CalendarEvent {
-}
+export interface CalendarEvent {}

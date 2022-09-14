@@ -1,47 +1,62 @@
-
-
-
 <div class="flex-container">
-<div class="inputArea">
-
-<div class="select-area">
-<mat-form-field appearance="fill" >
-<mat-label>Crypto</mat-label>
-<select #fsym matNativeControl required (change)="onSelectChange(fsym.value)">
-    <option [value]="cur" *ngFor="let cur of currencyListD">{{cur}}</option>
-</select>
-</mat-form-field>
-<mat-chip-list aria-label="Currency selection">
-<mat-chip 
-    *ngFor="let cur of currencyList"
-    (removed)="removeC(cur)">{{cur}}
-    <button matChipRemove>
-        <mat-icon>cancel</mat-icon>
+  <div class="inputArea">
+    <div class="select-area">
+      <mat-form-field appearance="fill">
+        <mat-label>Crypto</mat-label>
+        <select
+          #fsym
+          matNativeControl
+          required
+          (change)="onSelectChange(fsym.value)"
+        >
+          <option [value]="cur" *ngFor="let cur of currencyListD">
+            {{ cur }}
+          </option>
+        </select>
+      </mat-form-field>
+      <mat-chip-list aria-label="Currency selection">
+        <mat-chip *ngFor="let cur of currencyList" (removed)="removeC(cur)"
+          >{{ cur }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <br />
+    <div class="select-area">
+      <mat-form-field appearance="fill">
+        <mat-label>Currency</mat-label>
+        <select #tsym matNativeControl required>
+          <option value="USD">USD</option>
+          <option value="INR">INR</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="select-area">
+      <mat-form-field>
+        <mat-label>No of entry</mat-label>
+        <input
+          type="number"
+          matInput
+          #limit
+          required
+          (change)="inptChange(limit.value)"
+          [value]="this.limitV"
+        />
+      </mat-form-field>
+    </div>
+    <div class="select-area">
+      <button
+        (click)="callCryptoData(tsym.value, limit.value)"
+        mat-flat-button
+        color="primary"
+        [disabled]="isDisabled"
+      >
+        GetDataM
       </button>
-</mat-chip>
-</mat-chip-list>
-</div>
-<br>
-<div class="select-area">
-<mat-form-field appearance="fill">
-<mat-label>Currency</mat-label>
-<select #tsym matNativeControl required >
-    <option value="USD">USD</option>
-    <option value="INR">INR</option>
-</select>
-</mat-form-field>
-</div>
-<div class="select-area">
-<mat-form-field>
-    <mat-label>No of entry</mat-label>
-    <input type="number" matInput  #limit required (change)="inptChange(limit.value)" [value]="this.limitV">
-</mat-form-field>
-</div>
-<div class="select-area">
-<button (click)=" callCryptoData(tsym.value,limit.value)" mat-flat-button color="primary" [disabled]="isDisabled">GetDataM</button> 
-<span>{{errMessage}}</span>
-</div>
- 
-</div>
-<app-dispcard [dispCryp]="dispCryp" ></app-dispcard>
+      <span>{{ errMessage }}</span>
+    </div>
+  </div>
+  <app-dispcard [dispCryp]="dispCryp"></app-dispcard>
 </div>

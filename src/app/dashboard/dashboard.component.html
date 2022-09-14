@@ -1,41 +1,78 @@
 <nav>
-    <mat-toolbar color="primary">
-        <mat-toolbar-row >
-            <span  routerLink="" routerLinkActive="active">Crypto Dashboard</span>
-            
-          <span  routerLink="/current" routerLinkActive="active" [class.spnLink]="routerUrl!='/current'" [class.spnLinkF]="routerUrl=='/current'">
-            Current
-          </span>
-            <span routerLink="/histodata" routerLinkActive="active" [class.spnLink]="routerUrl!='/histodata'" [class.spnLinkF]="routerUrl=='/histodata'">
-                History 
-            </span>
-            <span routerLink="/btccalc" routerLinkActive="active" [class.spnLink]="routerUrl!='/btccalc'" [class.spnLinkF]="routerUrl=='/btccalc'">
-              BTC Calculator 
-          </span>
-          <span routerLink="/users" routerLinkActive="active" [class.spnLink]="routerUrl!='/users'" [class.spnLinkF]="routerUrl=='/users'">
-            Users
-        </span>
-        <span routerLink="/calendar" routerLinkActive="active" [class.spnLink]="routerUrl!='/calendar'" [class.spnLinkF]="routerUrl=='/calendar'">
-          Calendar
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span routerLink="" routerLinkActive="active">Crypto Dashboard</span>
+
+      <span
+        routerLink="/current"
+        routerLinkActive="active"
+        [class.spnLink]="routerUrl != '/current'"
+        [class.spnLinkF]="routerUrl == '/current'"
+      >
+        Current
       </span>
-            <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" routerLink="" routerLinkActive="active">
-    <mat-icon>home</mat-icon>
-  </button>
-  <!-- <span routerLink="/login" routerLinkActive="active" [class.spnLink]="routerUrl!='/login'" [class.spnLinkF]="routerUrl=='/login'">
+      <span
+        routerLink="/histodata"
+        routerLinkActive="active"
+        [class.spnLink]="routerUrl != '/histodata'"
+        [class.spnLinkF]="routerUrl == '/histodata'"
+      >
+        History
+      </span>
+      <span
+        routerLink="/btccalc"
+        routerLinkActive="active"
+        [class.spnLink]="routerUrl != '/btccalc'"
+        [class.spnLinkF]="routerUrl == '/btccalc'"
+      >
+        BTC Calculator
+      </span>
+      <span
+        routerLink="/users"
+        routerLinkActive="active"
+        [class.spnLink]="routerUrl != '/users'"
+        [class.spnLinkF]="routerUrl == '/users'"
+      >
+        Users
+      </span>
+      <span
+        routerLink="/calendar"
+        routerLinkActive="active"
+        [class.spnLink]="routerUrl != '/calendar'"
+        [class.spnLinkF]="routerUrl == '/calendar'"
+      >
+        Calendar
+      </span>
+      <span class="example-spacer"></span>
+      <button
+        mat-icon-button
+        class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon"
+        routerLink=""
+        routerLinkActive="active"
+      >
+        <mat-icon>home</mat-icon>
+      </button>
+      <!-- <span routerLink="/login" routerLinkActive="active" [class.spnLink]="routerUrl!='/login'" [class.spnLinkF]="routerUrl=='/login'">
     login/out 
 </span> -->
-<!-- <button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
+      <!-- <button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
   <mat-icon>logout</mat-icon>
 </button> -->
-<button mat-button [matMenuTriggerFor]="menu">{{sessionData.email}}<mat-icon>keyboard_arrow_down</mat-icon></button>
-<mat-menu #menu="matMenu">
-  <button mat-icon-button class="example-icon favorite-icon"  (click)="logout()">
-    <mat-icon>logout</mat-icon> Logout
-  </button>
-   <!-- <button mat-menu-item  routerLink="/users" routerLinkActive="active">Item 2</button>  -->
-</mat-menu>
-        </mat-toolbar-row>
-    </mat-toolbar>
+      <button mat-button [matMenuTriggerFor]="menu">
+        {{ sessionData.email }}<mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          mat-icon-button
+          class="example-icon favorite-icon"
+          (click)="logout()"
+        >
+          <mat-icon>logout</mat-icon> Logout
+        </button>
+        <!-- <button mat-menu-item  routerLink="/users" routerLinkActive="active">Item 2</button>  -->
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </nav>
 <router-outlet></router-outlet>

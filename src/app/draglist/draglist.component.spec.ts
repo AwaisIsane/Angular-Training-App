@@ -8,9 +8,8 @@ describe('DraglistComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DraglistComponent ]
-    })
-    .compileComponents();
+      declarations: [DraglistComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DraglistComponent);
     component = fixture.componentInstance;

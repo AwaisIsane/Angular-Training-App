@@ -8,9 +8,8 @@ describe('CryptodisplayComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CryptodisplayComponent ]
-    })
-    .compileComponents();
+      declarations: [CryptodisplayComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CryptodisplayComponent);
     component = fixture.componentInstance;

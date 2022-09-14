@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { DispcardComponent } from './dispcard/dispcard.component';
 import { CryptodisplayComponent } from './cryptodisplay/cryptodisplay.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { CurrentComponent } from './current/current.component';
@@ -35,7 +35,7 @@ import { DialogComponent } from './dialog/dialog.component';
     RegistrationformComponent,
     DraglistComponent,
     FullcalendarComponent,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +43,9 @@ import { DialogComponent } from './dialog/dialog.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

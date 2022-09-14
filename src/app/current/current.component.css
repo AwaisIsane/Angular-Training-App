@@ -1,22 +1,22 @@
 table {
-    width: 100%;
-  }
+  width: 100%;
+}
 .green-text {
-    color: green;
+  color: green;
 }
 .red-text {
-    color: red;
+  color: red;
 }
 .info-icon {
-    max-width: 25px;
-    max-height: 25px;
-    vertical-align: middle;
+  max-width: 25px;
+  max-height: 25px;
+  vertical-align: middle;
 }
 .coin-image {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 th {
-    font-size: medium;
-    color:rgb(59, 58, 58);
+  font-size: medium;
+  color: rgb(59, 58, 58);
 }
