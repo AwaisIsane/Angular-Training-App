@@ -12,7 +12,7 @@ import {
   tap,
   throwError,
 } from 'rxjs';
-import { Logindata } from '../logindata';
+import { Logindata } from '../login/login.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,32 +27,38 @@ export class AuthService {
     lname: '',
     password: '',
     loggedin: false,
+    status:"",
   };
 
   // store the URL so we can redirect after logging in
   redirectUrl: string | null = null;
 
-  login(username: string | null, password: string | null): Observable<string> {
+  login(username: string | null, password: string | null): Observable<Logindata> {
     const url = `http://localhost:3000/employees?email=${username}`;
     return this.httpSrv.get<any>(url).pipe(
-      map((response: any) => {
+      map((response: Logindata[]) => {
         if (response.length > 0) {
           const res = response[0];
+           const Ldata = {
+            id: res.email ,
+            email: res.email,
+            fname: res.fname,
+            lname: res.lname,
+            password: res.password,
+            loggedin: false,
+            status:'wrong password'
+          };
           if (res.password == password) {
             this.isLoggedIn = true;
-            this.sessionData = {
-              id: res.email,
-              email: res.email,
-              fname: res.fname,
-              lname: res.lname,
-              password: res.password,
-              loggedin: true,
-            };
+            this.sessionData = {...Ldata,loggedin:true,status:'true'};
+            const Ldata2 = {...Ldata,loggedin:true,status:'true'};
             this.isLoggedIn = true;
+            return Ldata2
           }
-          return res.password == password ? 'true' : 'wrong passwrd';
+          return Ldata;
         }
-        return 'wrong username';
+        const Ldata = {...this.sessionData,status:'wrong username'}
+        return Ldata;
       }),
       catchError((err) => {
         this.error.next(err.message);

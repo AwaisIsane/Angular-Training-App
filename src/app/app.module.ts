@@ -19,6 +19,12 @@ import { MaterialModule } from './material/material.module';
 import { DraglistComponent } from './draglist/draglist.component';
 import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { loginReducer } from './login/state/login.reducer';
+import { LoginEffects } from './login/state/login.effect';
+import { environment } from '../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -44,6 +50,9 @@ import { DialogComponent } from './dialog/dialog.component';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    EffectsModule.forRoot([LoginEffects]),
+    StoreModule.forRoot({cred:loginReducer}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -65,7 +65,7 @@ export class FullcalendarComponent implements OnInit {
       obj = result;
       if (result) {
         this.events.push(obj);
-        this.calendarOptions.events = this.events;
+        // this.calendarOptions.events = this.events;
         this.eventssrv
           .addEvent('Fxy1x7f', this.events)
           .subscribe(() => this.CalendarApi.addEvent(obj));

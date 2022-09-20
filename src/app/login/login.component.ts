@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { login } from './state/login.action';
+import { Store } from '@ngrx/store';
+import { Logindata } from './login.model';
+import { AppState } from '../state/app.state';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +20,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  message: string = '';
-  error: string = '';
+  credentials$: Observable<Logindata> = this.store.select(state=> state.cred);
+
   private loginsub!: Subscription;
   loginform = this.fb.group({
     username: ['', [Validators.email, Validators.required]],
@@ -27,42 +31,19 @@ export class LoginComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public router: Router,
     private fb: FormBuilder,
-    private _snackBar: MatSnackBar
-  ) {
-    this.message = this.getMessage();
-  }
+    private _snackBar: MatSnackBar,
+    private store: Store<AppState>
+  ) {}
 
-  getMessage() {
-    return 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-  }
   onSubmit() {
     console.log('redirecting');
     this.router.navigate(['/register']);
   }
 
   login() {
-    // this.message = 'Trying to log in ...';
-    const usernme = this.loginform.controls.username.value;
-    const password = this.loginform.controls.password.value;
-    // console.log("login",usernme,password)
-    this.loginsub = this.authService
-      .login(usernme, password)
-      .subscribe((response) => {
-        this.error = '';
-        if (response == 'true') {
-          this.message = this.getMessage();
-          if (this.authService.isLoggedIn) {
-            // Usually you would use the redirect URL from the auth service.
-            // However to keep the example simple, we will always redirect to `/admin`.
-            const redirectUrl = '/';
-
-            // Redirect the user
-            this.router.navigate([redirectUrl]);
-          }
-        } else {
-          this._snackBar.open(response, 'ok');
-        }
-      });
+    const usernme = this.loginform.controls.username.value || "";
+    const password = this.loginform.controls.password.value||"";
+    this.store.dispatch(login({ username: usernme, password: password }));
   }
   getErrorMessageUsername(): string {
     if (this.loginform.controls['username'].hasError('required')) {
@@ -79,11 +60,20 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-    this.message = this.getMessage();
   }
 
   ngOnInit(): void {
     this.authService.error.subscribe((err) => this._snackBar.open(err, 'ok'));
+    this.loginsub = this.credentials$.subscribe((res)=>{
+      if(res.loggedin) {
+        const redirectUrl = '/';
+        this.router.navigate([redirectUrl]);
+      }
+      else if(res.status!=""){
+        this._snackBar.open(res.status, 'ok');
+      }
+    
+    })
   }
 
   ngOnDestroy(): void {
