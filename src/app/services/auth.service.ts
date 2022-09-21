@@ -13,6 +13,7 @@ import {
   throwError,
 } from 'rxjs';
 import { Logindata } from '../login/login.model';
+import { UserData } from '../manage/state/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -69,7 +70,7 @@ export class AuthService {
   //   this.isLoggedIn = false;
   // }
 
-  getAll(): Observable<Logindata[]> {
+  getAll(): Observable<UserData []> {
     const url = `http://localhost:3000/employees`;
     return this.httpSrv.get<any>(url);
   }

@@ -1,0 +1,91 @@
+<p>manage works!</p>
+<table mat-table [dataSource]="userList$" class="mat-elevation-z8">
+<ng-container matColumnDef="email">
+<th mat-header-cell *matHeaderCellDef>Email</th>
+<td mat-cell *matCellDef="let ele">
+    <ng-container *ngIf="ele.id!==editId">
+    {{ele.email}}
+</ng-container>
+<ng-container *ngIf="ele.id==editId">
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [value]="editUser.email" (change)="changeEditField('email',$event)" type="email">
+        <mat-hint>for {{editUser.id}}</mat-hint>
+      </mat-form-field>
+</ng-container>
+</td>
+</ng-container>
+    <ng-container matColumnDef="fname">
+        <th mat-header-cell *matHeaderCellDef>fname</th>
+        <td mat-cell *matCellDef="let ele;let i =index"  >
+            <ng-container *ngIf="ele.id!==editId">
+           {{ele.fname}}
+        </ng-container>
+        <ng-container *ngIf="ele.id==editId">
+            <mat-form-field appearance="fill">
+                <mat-label>Fname</mat-label>
+                <input matInput [value]="editUser.fname" (change)="changeEditField('fname',$event)" >
+              </mat-form-field>
+        </ng-container>
+        </td>
+        </ng-container>
+        <ng-container matColumnDef="password">
+            <th mat-header-cell *matHeaderCellDef>password</th>
+            <td mat-cell *matCellDef="let ele">
+                <ng-container *ngIf="ele.id!==editId">
+                {{ele.password}}
+            </ng-container>
+            <ng-container *ngIf="ele.id==editId">
+                <mat-form-field appearance="fill">
+                    <mat-label>password</mat-label>
+                    <input matInput [value]="editUser.password" (change)="changeEditField('password',$event)" >
+                    <mat-hint>for {{editUser.id}}</mat-hint>
+                  </mat-form-field>
+            </ng-container>
+            </td>
+            </ng-container>
+
+        <ng-container matColumnDef="lname">
+            <th mat-header-cell *matHeaderCellDef>Lname</th>
+            <td mat-cell *matCellDef="let ele">
+                <ng-container *ngIf="ele.id!==editId">
+                {{ele.lname}}
+            </ng-container>
+            <ng-container *ngIf="ele.id==editId">
+                <mat-form-field appearance="fill">
+                    <mat-label>Lname</mat-label>
+                    <input matInput [value]="editUser.lname" (change)="changeEditField('lname',$event)" >
+                    <mat-hint>for {{editUser.id}}</mat-hint>
+                  </mat-form-field>
+            </ng-container>
+            </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>edit</th>
+                <td mat-cell *matCellDef="let ele">
+                    <ng-container *ngIf="ele.id!==editId">
+                    <button mat-button color="primary" (click)="editEvent(ele.id)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                </ng-container>
+                <ng-container *ngIf="ele.id==editId">
+                    <button mat-raised-button color="pimary" (click)="cancelEditEvent()">Cancel</button>
+                </ng-container>
+                </td>
+                </ng-container>
+                <ng-container matColumnDef="delete">
+                    <th mat-header-cell *matHeaderCellDef>Delete</th>
+                    <td mat-cell *matCellDef="let ele">
+                        <ng-container *ngIf="ele.id!==editId">
+                        <button mat-button color="primary" (click)="deleteEvent(ele.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    </ng-container>
+                    <ng-container *ngIf="ele.id==editId">
+                        <button mat-raised-button color="warn" (click)="okEvent()">OK</button>
+                    </ng-container>
+                    </td>
+                    </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -25,6 +25,9 @@ import { loginReducer } from './login/state/login.reducer';
 import { LoginEffects } from './login/state/login.effect';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ManageComponent } from './manage/manage.component';
+import { ManageEffects } from './manage/state/manage.effects';
+import { userListReducer } from './manage/state/manage.reducer';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -42,6 +45,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DraglistComponent,
     FullcalendarComponent,
     DialogComponent,
+    ManageComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +54,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    EffectsModule.forRoot([LoginEffects]),
-    StoreModule.forRoot({cred:loginReducer}),
+    EffectsModule.forRoot([LoginEffects,ManageEffects]),
+    StoreModule.forRoot({cred:loginReducer,UserList:userListReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],

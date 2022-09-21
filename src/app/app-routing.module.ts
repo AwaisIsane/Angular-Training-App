@@ -10,11 +10,13 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
 import { FullcalendarComponent } from './fullcalendar/fullcalendar.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { LoginComponent } from './login/login.component';
+import { ManageComponent } from './manage/manage.component';
 import { RegistrationformComponent } from './registrationform/registrationform.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationformComponent },
+  {path:'manage',component:ManageComponent},
   // {path:'calendar',component:FullcalendarComponent},
   {
     path: '',
