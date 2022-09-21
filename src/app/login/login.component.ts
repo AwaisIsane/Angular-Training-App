@@ -58,9 +58,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     return 'password format not proper';
   }
 
-  logout() {
-    this.authService.logout();
-  }
+  // logout() {
+  //   this.authService.logout();
+  // }
 
   ngOnInit(): void {
     this.authService.error.subscribe((err) => this._snackBar.open(err, 'ok'));

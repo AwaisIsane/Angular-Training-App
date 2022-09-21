@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Logindata } from '../login/login.model';
 import { AuthService } from '../services/auth.service';
+import { AppState } from '../state/app.state';
+import { logout } from './state/dashboard.action';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +18,7 @@ export class DashboardComponent implements OnInit {
   getSessData(): Logindata {
     return this.authService.sessionData;
   }
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService,private store: Store<AppState>) {
     this.router.events.subscribe((value) => {
       if (value instanceof NavigationEnd) {
         this.OnUrlChange(this.router.url);
@@ -26,7 +29,7 @@ export class DashboardComponent implements OnInit {
     this.routerUrl = url;
   }
   logout() {
-    this.authService.logout();
+    this.store.dispatch(logout());
     this.router.navigate(['/login']);
   }
 

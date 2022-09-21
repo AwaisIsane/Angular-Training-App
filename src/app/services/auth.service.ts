@@ -18,7 +18,6 @@ import { Logindata } from '../login/login.model';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn = false;
   error = new Subject<string>();
   sessionData: Logindata = {
     id: '',
@@ -49,10 +48,8 @@ export class AuthService {
             status:'wrong password'
           };
           if (res.password == password) {
-            this.isLoggedIn = true;
             this.sessionData = {...Ldata,loggedin:true,status:'true'};
             const Ldata2 = {...Ldata,loggedin:true,status:'true'};
-            this.isLoggedIn = true;
             return Ldata2
           }
           return Ldata;
@@ -67,10 +64,10 @@ export class AuthService {
     );
   }
 
-  logout(): void {
-    console.log('logged out');
-    this.isLoggedIn = false;
-  }
+  // logout(): void {
+  //   console.log('logged out');
+  //   this.isLoggedIn = false;
+  // }
 
   getAll(): Observable<Logindata[]> {
     const url = `http://localhost:3000/employees`;
