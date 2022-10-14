@@ -13,6 +13,7 @@ import {
   throwError,
 } from 'rxjs';
 import { Logindata } from '../login/login.model';
+import { deleteUser } from '../manage/state/manage.action';
 import { UserData } from '../manage/state/user.model';
 
 @Injectable({
@@ -74,6 +75,17 @@ export class AuthService {
     const url = `http://localhost:3000/employees`;
     return this.httpSrv.get<any>(url);
   }
+
+  deleteUser(userId:string):Observable<UserData> {
+    const url = `http://localhost:3000/employees/${userId}`;
+    return this.httpSrv.delete<any>(url).pipe(
+      map((res)=>{console.log(res,"resd");return res})
+    )
+  }
+
+  // updateUser(userId:string):Observable<UserData> {
+
+  // }
   //constructor() { }
   constructor(private httpSrv: HttpClient) {}
 }

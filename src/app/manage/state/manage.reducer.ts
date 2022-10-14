@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store'
-import { deleteUser, getUserSucess, updateUser } from './manage.action'
+import { deleteUser, deleteUserSuccess, getUserSucess, updateUser } from './manage.action'
 import {UserData} from './user.model'
 
 
@@ -11,7 +11,7 @@ export const userListReducer = createReducer(
         return [...state,...data.userList]
     }),
 
-    on(deleteUser,(state,{userId}) => {
+    on(deleteUserSuccess,(state,{userId}) => {
         return state.filter(dt => userId!==dt.id)
     }),
     on(updateUser,(state,{userData})=> {

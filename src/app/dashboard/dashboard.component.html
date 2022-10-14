@@ -60,7 +60,7 @@
   <mat-icon>logout</mat-icon>
 </button> -->
       <button mat-button [matMenuTriggerFor]="menu">
-        {{ sessionData.email }}<mat-icon>keyboard_arrow_down</mat-icon>
+        {{sessionDataEmail$|async }}<mat-icon>keyboard_arrow_down</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button

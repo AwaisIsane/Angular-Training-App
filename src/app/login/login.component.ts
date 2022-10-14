@@ -10,9 +10,10 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { login } from './state/login.action';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Logindata } from './login.model';
 import { AppState } from '../state/app.state';
+import { selectUserCred } from './state/login.selector';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ import { AppState } from '../state/app.state';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  credentials$: Observable<Logindata> = this.store.select(state=> state.cred);
+  credentials$: Observable<Logindata> = this.store.pipe(select(selectUserCred));
 
   private loginsub!: Subscription;
   loginform = this.fb.group({
@@ -66,8 +67,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.error.subscribe((err) => this._snackBar.open(err, 'ok'));
     this.loginsub = this.credentials$.subscribe((res)=>{
       if(res.loggedin) {
-        const redirectUrl = '/';
-        this.router.navigate([redirectUrl]);
+        console.log("going to dashboard")
+        //const redirectUrl = '/';
+        this.router.navigate(['/']);
       }
       else if(res.status!=""){
         this._snackBar.open(res.status, 'ok');

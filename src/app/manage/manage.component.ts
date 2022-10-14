@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Store } from '@ngrx/store';
+import { Store,select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../state/app.state';
 import { deleteUser } from './state/manage.action';
+import {  selectUserList } from './state/manage.selector';
 import { UserData } from './state/user.model';
 
 @Component({
@@ -12,7 +13,7 @@ import { UserData } from './state/user.model';
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit {
-  userList$:Observable<UserData []> = this.store.select(state=>state.UserList)
+  userList$:Observable<UserData []> = this.store.pipe(select(selectUserList));
   displayedColumns:string [] = ['email','fname','lname','password','edit','delete']
   editId:string = "";
   editUser:UserData = {
@@ -24,16 +25,10 @@ export class ManageComponent implements OnInit {
                     }
 
  
-  editEvent(id:string) {
-    console.log("edit",id)
-    this.editId = id;
-    this.editUser = {
-            email: "",
-            password: "",
-            fname: "",
-            lname: "",
-            id: id
-            }
+  editEvent(ele:UserData) {
+    console.log("edit",ele.id)
+    this.editId = ele.id;
+    this.editUser = {...ele}
   }
   changeEditField(fr:string,value:Event) {
     const valuer = (value.target as HTMLInputElement).value;
@@ -54,9 +49,23 @@ export class ManageComponent implements OnInit {
     console.log("okay edited")
     this.store.dispatch({type:'[Manage Page] Update User',userData:this.editUser})
     this.editId = "";
+    this.editUser = {
+      email: "",
+      password: "",
+      fname: "",
+      lname: "",
+      id: ""
+      }
   }
   cancelEditEvent() {
-    this.editId = ""
+    this.editId = "";
+    this.editUser = {
+      email: "",
+      password: "",
+      fname: "",
+      lname: "",
+      id: ""
+      }
   }
   constructor(private store:Store<AppState>) { }
   ngOnInit(): void {

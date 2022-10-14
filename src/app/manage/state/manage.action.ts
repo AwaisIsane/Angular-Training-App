@@ -17,7 +17,12 @@ export const editUser = createAction(
 
 export const deleteUser = createAction(
     '[Manage Page] Delete User',
-    props<{userId:String}>()
+    props<{userId:string}>()
+)
+
+export const deleteUserSuccess = createAction(
+    '[Manage Page] Delete User Success',
+    props<{userId:string}>()
 )
 
 export const updateUser = createAction(

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Logindata } from '../login/login.model';
 import { AuthService } from '../services/auth.service';
 import { AppState } from '../state/app.state';
-import { logout } from './state/dashboard.action';
+import { logout, updateLogginCreds } from './state/dashboard.action';
+import { selectUserCred, selectUserEmail } from './state/dashboard.selector';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +15,8 @@ import { logout } from './state/dashboard.action';
 })
 export class DashboardComponent implements OnInit {
   routerUrl: string = '';
-  sessionData: Logindata = this.getSessData();
+  sessionDataEmail$: Observable<string> = this.store.pipe(select(selectUserEmail));;
 
-  getSessData(): Logindata {
-    return this.authService.sessionData;
-  }
   constructor(private router: Router, private authService: AuthService,private store: Store<AppState>) {
     this.router.events.subscribe((value) => {
       if (value instanceof NavigationEnd) {
@@ -33,5 +32,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const ldata = localStorage.getItem('LoginData')
+    if(ldata) {
+    const lcred:Logindata = JSON.parse(ldata)
+    this.store.dispatch(updateLogginCreds(lcred))}
+  }
 }

@@ -12,6 +12,7 @@ export class LoginEffects {
      exhaustMap((action) => this.authsrv.login(action.username,action.password)
        .pipe(
          map(logcred => {
+            console.log("inside effect")
             return Loginpageaction.loginSuccess(logcred)}),
 //catchError(error => of(Loginpageaction.loginError({ error })))
           catchError(()=>EMPTY)
