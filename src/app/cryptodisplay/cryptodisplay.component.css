@@ -10,3 +10,14 @@ mat-card-title {
   color: azure;
   background: blue;
 }
+
+.date-select-area {        
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.graphContainer {
+  display: block;
+  /* flex:1; */
+}

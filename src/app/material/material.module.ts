@@ -17,7 +17,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 const materialComponents = [
   MatCardModule,
   MatButtonModule,
@@ -37,6 +38,8 @@ const materialComponents = [
   MatSnackBarModule,
   DragDropModule,
   MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule 
 ];
 
 @NgModule({

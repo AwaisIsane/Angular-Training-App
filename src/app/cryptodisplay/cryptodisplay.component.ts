@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cryptodata } from '../cryptodata';
 import { CryptoService } from '../services/crypto.service';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 // import { Observable, observable } from 'rxjs';
 
 @Component({
@@ -11,23 +15,76 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CryptodisplayComponent implements OnInit {
   // cryptosall:observable<CryptoDataall> [] = []
-  currencyList: string[] = ['BTC'];
-  currencyListD: string[] = [
-    'BTC',
-    'ETH',
-    'LUNA',
-    'MATIC',
-    'SOL',
-    'BNB',
-    'XRP',
-    'LUNC',
-  ];
+  currencyList: string[] = ['bitcoin'];
+  labels:string[] = []
+  values:number[] = []
+  currencyListD:string[] = ["bitcoin","ethereum"]
   dispCryp: Cryptodata[][] = [];
   //dispCryp!:Observable<Cryptodata [][]>
   errMessage: string = '';
   isDisabled = 'true';
   limitV: string = '';
-  currCompare: string = 'USD';
+  grphForm = new FormGroup({
+    //crypto: new FormControl('bitcoin'),
+    currency: new FormControl('usd'),
+    start_date: new FormControl(new Date()),
+    end_date:new FormControl(new Date())
+  })
+  lineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: this.labels,
+    datasets: [
+      {
+        data: this.values,
+        label: 'Series A',
+        fill: true,
+        tension: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'rgba(255,0,0,0.3)'
+      }
+    ]
+  };
+   lineChartOptions: ChartOptions<'line'> = {
+    //responsive: true,
+   scales: {
+    // to remove the labels
+    x: {
+      ticks: {
+        maxTicksLimit:10
+      },
+      grid:{
+        display:false
+      }
+  }
+},
+elements:{
+  point:{
+    radius:0
+  }
+}
+
+}
+  lineChartLegend = false;
+
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+
+  getGraphData() {
+    const td = new Date().getTime();
+    const currency:string = this.grphForm.value.currency??'usd'
+    const crypto = 'bitcoin'
+    const start = Math.round((this.grphForm.value.start_date?.getTime()??td)/1000);
+    const end = Math.round((this.grphForm.value.end_date?.getTime()??td)/1000);
+    this.cryptosrv.getHistoricalData(crypto,currency,start,end).subscribe((res)=>{ 
+      this.labels = [];
+      this.values = []
+      res.prices.forEach((val)=>{
+        const valt = new Date(val[0])
+        const valtS = `${valt.getDate()}/${valt.getMonth()}/${valt.getFullYear()}`
+        this.labels.push(valtS)
+        this.values.push(val[1])
+      })
+      this.drawGraph();
+    })
+  }
   onSelectChange(fsym: string) {
     this.currencyList.push(fsym);
   }
@@ -38,79 +95,28 @@ export class CryptodisplayComponent implements OnInit {
       this.currencyList.splice(index, 1);
     }
   }
-
-  dispdat(data: any, fsym: string) {
-    data.forEach((element: Cryptodata) => {
-      this.fillDispCryp({ ...element, currName: fsym });
-    });
-  }
-  fillDispCryp(data: Cryptodata) {
-    const objT = data.time;
-    const obj = { ...data };
-    let chck = true;
-
-    for (let j = 0; j < this.dispCryp.length; j++) {
-      if (this.dispCryp[j][0].time == objT && chck) {
-        this.dispCryp[j].push(obj);
-        chck = false;
-      }
-    }
-    if (chck) {
-      this.dispCryp.push([obj]);
-      chck = false;
-    }
-  }
-
-  callCryptoData(tsym: string, limit: string) {
-    if (this.currencyList.length > 0 && limit && Number(limit)) {
-      this.errMessage = '';
-
-      this.dispCryp = [];
-      this.currencyList.forEach((ele) => {
-        this.getCryptosdata(ele, tsym, limit);
-      });
-    } else {
-      this.errMessage =
-        'please select a crypto and enter limit(valu >0) to compare ';
-    }
-  }
-
-  getCryptosdata(fsym: string, tsym: string, limit: string) {
-    let url: string = `https://min-api.cryptocompare.com/data/v2/histoday?fsym=${fsym}&tsym=${tsym}&limit=${limit}`;
-    this.cryptosrv.fetchData(url).subscribe({
-      next: (data) => this.dispdat(data, fsym),
-
-      error: (error) => {
-        console.error(error);
-      },
-
-      complete: () => {},
-    });
-  }
-
-  inptChange(limit: string) {
-    if (limit) {
-      this.errMessage = '';
-      this.isDisabled = 'false';
-    } else {
-      this.errMessage = 'please enter limit';
-    }
+  title = 'ng2-charts-demo';
+  drawGraph(){
+    
+    this.lineChartData.labels = this.labels;
+    this.lineChartData.datasets[0].data = this.values
+    this.chart?.update();
   }
 
   constructor(
     private cryptosrv: CryptoService,
     private router: ActivatedRoute
   ) {
-    this.router.queryParams.subscribe((params) => {
-      if (params['currency']) {
-        this.currencyList = params['currency'].split(',');
-      }
-      this.limitV = params['limit'];
-      if ((params['currency'], params['limit'])) {
-        this.isDisabled = 'false';
-        this.callCryptoData(this.currCompare, this.limitV);
-      }
-    });
+    // this.router.queryParams.subscribe((params) => {
+    //   if (params['currency']) {
+    //     this.currencyList = params['currency'].split(',');
+    //   }
+    //   this.limitV = params['limit'];
+    //   if ((params['currency'], params['limit'])) {
+    //     this.isDisabled = 'false';
+    //     this.callCryptoData(this.currCompare, this.limitV);
+    //   }
+    // });
   }
 
   ngOnInit(): void {}

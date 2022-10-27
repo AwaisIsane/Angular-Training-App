@@ -28,6 +28,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ManageComponent } from './manage/manage.component';
 import { ManageEffects } from './manage/state/manage.effects';
 import { userListReducer } from './manage/state/manage.reducer';
+import { HistoricalModule } from './historical/historical.module';
+import { HistoricalgraphComponent } from './historicalgraph/historicalgraph.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -46,6 +49,7 @@ import { userListReducer } from './manage/state/manage.reducer';
     FullcalendarComponent,
     DialogComponent,
     ManageComponent,
+    HistoricalgraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,9 +58,11 @@ import { userListReducer } from './manage/state/manage.reducer';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    HistoricalModule,
     EffectsModule.forRoot([LoginEffects,ManageEffects]),
     StoreModule.forRoot({cred:loginReducer,UserList:userListReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
