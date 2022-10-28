@@ -19,5 +19,11 @@ mat-card-title {
 }
 .graphContainer {
   display: block;
-  /* flex:1; */
+   flex:1; 
+   max-width: 1700px;
+}
+
+.inputArea {
+  max-width: 220px;
+
 }

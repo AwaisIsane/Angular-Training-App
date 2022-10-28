@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { allHistoricalData, historicalData } from './history.model';
 // import { Observable, observable } from 'rxjs';
 
 @Component({
@@ -16,10 +17,18 @@ import { validateHorizontalPosition } from '@angular/cdk/overlay';
 export class CryptodisplayComponent implements OnInit {
   // cryptosall:observable<CryptoDataall> [] = []
   currencyList: string[] = ['bitcoin'];
-  labels:string[] = []
-  values:number[] = []
-  currencyListD:string[] = ["bitcoin","ethereum"]
-  dispCryp: Cryptodata[][] = [];
+  //labels: string[] = [];
+  //values: number[] = [];
+  allData: allHistoricalData = {};
+  currencyListD: string[] = [
+    'bitcoin',
+    'ethereum',
+    'tether',
+    'cardano',
+    'solana',
+    'dogecoin',
+    'matic-network',
+  ];
   //dispCryp!:Observable<Cryptodata [][]>
   errMessage: string = '';
   isDisabled = 'true';
@@ -28,78 +37,126 @@ export class CryptodisplayComponent implements OnInit {
     //crypto: new FormControl('bitcoin'),
     currency: new FormControl('usd'),
     start_date: new FormControl(new Date()),
-    end_date:new FormControl(new Date())
-  })
+    end_date: new FormControl(new Date()),
+  });
   lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.labels,
-    datasets: [
-      {
-        data: this.values,
-        label: 'Series A',
-        fill: true,
-        tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
-      }
-    ]
+    labels: [],
+    datasets: [],
   };
-   lineChartOptions: ChartOptions<'line'> = {
-    //responsive: true,
-   scales: {
-    // to remove the labels
-    x: {
-      ticks: {
-        maxTicksLimit:10
+  lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart - Logarithmic',
       },
-      grid:{
-        display:false
-      }
-  }
-},
-elements:{
-  point:{
-    radius:0
-  }
-}
-
-}
-  lineChartLegend = false;
+    },
+    scales: {
+      // to remove the labels
+      x: {
+        ticks: {
+          maxTicksLimit: 10,
+        },
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        //    type: 'logarithmic'
+      },
+    },
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
+  };
+  lineChartLegend = true;
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   getGraphData() {
+    this.allData = {};
+    this.lineChartData.datasets = [];
+    //const colorArray = ['rgba(0, 255, 0, 0.2)','rgba(0,0,255,0.2)','rgba(255,0,0,0.3)']
+    //    const borderColorArray = ['green','red','blue']
+    let most = 0;
     const td = new Date().getTime();
-    const currency:string = this.grphForm.value.currency??'usd'
-    const crypto = 'bitcoin'
-    const start = Math.round((this.grphForm.value.start_date?.getTime()??td)/1000);
-    const end = Math.round((this.grphForm.value.end_date?.getTime()??td)/1000);
-    this.cryptosrv.getHistoricalData(crypto,currency,start,end).subscribe((res)=>{ 
-      this.labels = [];
-      this.values = []
-      res.prices.forEach((val)=>{
-        const valt = new Date(val[0])
-        const valtS = `${valt.getDate()}/${valt.getMonth()}/${valt.getFullYear()}`
-        this.labels.push(valtS)
-        this.values.push(val[1])
-      })
-      this.drawGraph();
-    })
+    const currency: string = this.grphForm.value.currency ?? 'usd';
+    const start = Math.round(
+      (this.grphForm.value.start_date?.getTime() ?? td) / 1000
+    );
+    const end = Math.round(
+      (this.grphForm.value.end_date?.getTime() ?? td) / 1000
+    );
+    for (let i = 0; i < this.currencyList.length; i++) {
+      const crypto = this.currencyList[i];
+      this.cryptosrv
+        .getHistoricalData(crypto, currency, start, end)
+        .subscribe((res) => {
+          // this.labels = [];
+          // this.values = [];
+          this.allData[crypto] = { value: [], date: [] };
+          if (res.prices.length > most) {
+            console.log('here');
+            most = res.prices.length;
+          }
+          res.prices.forEach((val) => {
+            const valt = new Date(val[0]);
+            const valtS = `${valt.getDate()}/${
+              valt.getMonth() + 1
+            }/${valt.getFullYear()}`;
+            this.allData[crypto].date.push(valtS);
+            this.allData[crypto].value.push(val[1]);
+          });
+          // this.drawGraph(crypto,colorArray[i%3]);
+          if (this.allData[crypto].value.length < most) {
+            const diffN = most - this.allData[crypto].value.length;
+            const arr = new Array(diffN);
+            arr.fill(0);
+            this.allData[crypto].value = [
+              ...arr,
+              ...this.allData[crypto].value,
+            ];
+          }
+          this.drawGraph(crypto);
+        });
+    }
   }
   onSelectChange(fsym: string) {
-    this.currencyList.push(fsym);
+    // this.currencyList.push(fsym);
+    const index = this.currencyList.indexOf(fsym);
+
+    if (index == -1) {
+      //   this.currencyListD.splice(index, 1);
+      this.currencyList.push(fsym);
+    }
   }
   removeC(currency: string): void {
     const index = this.currencyList.indexOf(currency);
 
     if (index >= 0) {
       this.currencyList.splice(index, 1);
+      // this.currencyListD.push(currency)
     }
   }
   title = 'ng2-charts-demo';
-  drawGraph(){
-    
-    this.lineChartData.labels = this.labels;
-    this.lineChartData.datasets[0].data = this.values
+  drawGraph(
+    crypto: string,
+    backgroundColor: string = 'rgba(148,159,177,0.2)',
+    borderColor: string = 'black'
+  ) {
+    let dataset = {
+      data: this.allData[crypto].value,
+      label: crypto,
+      fill: true,
+      tension: 0.5,
+      //  borderColor: borderColor,
+      //  backgroundColor: backgroundColor
+    };
+    this.lineChartData.labels = this.allData[crypto].date;
+    // this.lineChartData.datasets[0].data = this.allData[crypto].value;
+    this.lineChartData.datasets.push(dataset);
     this.chart?.update();
   }
 
