@@ -38,6 +38,7 @@ export class CryptodisplayComponent implements OnInit {
     currency: new FormControl('usd'),
     start_date: new FormControl(new Date()),
     end_date: new FormControl(new Date()),
+    //type:new FormControl('')
   });
   lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
@@ -48,7 +49,7 @@ export class CryptodisplayComponent implements OnInit {
     plugins: {
       title: {
         display: true,
-        text: 'Chart.js Line Chart - Logarithmic',
+        text: 'Chart.js Line Chart',
       },
     },
     scales: {
@@ -60,6 +61,13 @@ export class CryptodisplayComponent implements OnInit {
         grid: {
           display: false,
         },
+      //    type:'time',
+      //    time: {
+      //     displayFormats:{
+      //       day:'MMM YYYY'
+      //     }
+          
+      //  }
       },
       y: {
         //    type: 'logarithmic'
@@ -78,8 +86,6 @@ export class CryptodisplayComponent implements OnInit {
   getGraphData() {
     this.allData = {};
     this.lineChartData.datasets = [];
-    //const colorArray = ['rgba(0, 255, 0, 0.2)','rgba(0,0,255,0.2)','rgba(255,0,0,0.3)']
-    //    const borderColorArray = ['green','red','blue']
     let most = 0;
     const td = new Date().getTime();
     const currency: string = this.grphForm.value.currency ?? 'usd';
@@ -89,24 +95,25 @@ export class CryptodisplayComponent implements OnInit {
     const end = Math.round(
       (this.grphForm.value.end_date?.getTime() ?? td) / 1000
     );
+
+
     for (let i = 0; i < this.currencyList.length; i++) {
       const crypto = this.currencyList[i];
       this.cryptosrv
         .getHistoricalData(crypto, currency, start, end)
         .subscribe((res) => {
-          // this.labels = [];
-          // this.values = [];
           this.allData[crypto] = { value: [], date: [] };
           if (res.prices.length > most) {
-            console.log('here');
             most = res.prices.length;
           }
           res.prices.forEach((val) => {
-            const valt = new Date(val[0]);
-            const valtS = `${valt.getDate()}/${
-              valt.getMonth() + 1
-            }/${valt.getFullYear()}`;
-            this.allData[crypto].date.push(valtS);
+            const date_val = new Date(val[0]);
+            const date_formatted = `${date_val.getDate()}/${
+              date_val.getMonth() + 1
+            }/${date_val.getFullYear()}`;
+           // const date_formatted = date_val.getTime()
+            this.allData[crypto].date.push(date_formatted);
+          //  this.allData[crypto].date.push(valt.getTime())
             this.allData[crypto].value.push(val[1]);
           });
           // this.drawGraph(crypto,colorArray[i%3]);
@@ -124,7 +131,6 @@ export class CryptodisplayComponent implements OnInit {
     }
   }
   onSelectChange(fsym: string) {
-    // this.currencyList.push(fsym);
     const index = this.currencyList.indexOf(fsym);
 
     if (index == -1) {
@@ -155,7 +161,7 @@ export class CryptodisplayComponent implements OnInit {
       //  backgroundColor: backgroundColor
     };
     this.lineChartData.labels = this.allData[crypto].date;
-    // this.lineChartData.datasets[0].data = this.allData[crypto].value;
+     //   this.lineChartData.datasets[0].data = this.allData[crypto].value;
     this.lineChartData.datasets.push(dataset);
     this.chart?.update();
   }

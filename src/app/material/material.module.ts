@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,7 +40,9 @@ const materialComponents = [
   DragDropModule,
   MatDialogModule,
   MatDatepickerModule,
-  MatNativeDateModule 
+  MatNativeDateModule ,
+  MatSlideToggleModule
+  
 ];
 
 @NgModule({
