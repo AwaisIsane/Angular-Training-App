@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Coinsdata } from '../coinsdata';
 import { Caldata } from '../caldata';
-import { historicalData } from '../cryptodisplay/history.model';
+import { historicalData } from '../historical/history.model';
 
 @Injectable({
   providedIn: 'root',

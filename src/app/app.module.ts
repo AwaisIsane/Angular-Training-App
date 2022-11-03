@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DispcardComponent } from './dispcard/dispcard.component';
-import { CryptodisplayComponent } from './cryptodisplay/cryptodisplay.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
@@ -12,7 +11,7 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
 import { CurrentComponent } from './current/current.component';
 import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component';
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+// import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationformComponent } from './registrationform/registrationform.component';
 import { MaterialModule } from './material/material.module';
@@ -32,19 +31,19 @@ import { HistoricalModule } from './historical/historical.module';
 import { HistoricalgraphComponent } from './historicalgraph/historicalgraph.component';
 import { NgChartsModule } from 'ng2-charts';
 import { httpInterceptorProviders } from './httpinterceptor';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     DispcardComponent,
-    CryptodisplayComponent,
     ErrorpageComponent,
     LandingpageComponent,
     CurrentComponent,
     CalculatorbtcComponent,
     LoginComponent,
-    DashboardComponent,
+    // DashboardComponent,
     RegistrationformComponent,
     DraglistComponent,
     FullcalendarComponent,
@@ -60,6 +59,7 @@ import { httpInterceptorProviders } from './httpinterceptor';
     HttpClientModule,
     MaterialModule,
     HistoricalModule,
+    DashboardModule,
     EffectsModule.forRoot([LoginEffects,ManageEffects]),
     StoreModule.forRoot({cred:loginReducer,UserList:userListReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
