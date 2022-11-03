@@ -31,6 +31,7 @@ import { userListReducer } from './manage/state/manage.reducer';
 import { HistoricalModule } from './historical/historical.module';
 import { HistoricalgraphComponent } from './historicalgraph/historicalgraph.component';
 import { NgChartsModule } from 'ng2-charts';
+import { httpInterceptorProviders } from './httpinterceptor';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -64,7 +65,7 @@ import { NgChartsModule } from 'ng2-charts';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     NgChartsModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
