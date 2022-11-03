@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Coinsdata } from '../coinsdata';
 import { Caldata } from '../caldata';
-import { historicalData } from '../historical/history.model';
+import { historicalData } from '../dashboard/historical/history.model';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +52,7 @@ export class CryptoService {
   fetchData(apiUrl: string): Observable<object> {
     return this.httpSrv
       .get<object>(apiUrl)
-      .pipe(map((response: any) => response['Data']['Data']));
+      .pipe(map((response: any) => response));
   }
 
   constructor(private httpSrv: HttpClient) {}

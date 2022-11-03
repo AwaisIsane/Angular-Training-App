@@ -14,6 +14,9 @@ export class LoggingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     console.log("inside interceptor",request)
+    // const req = request.clone({
+    //   crossDomain:request.c
+    // })
     return next.handle(request);
   }
 }

@@ -1,0 +1,86 @@
+<button (click)="getCoinsDataEvent()">Reload Data</button>
+<!-- <table  class="mat-elevation-z8">  -->
+<table mat-table [dataSource]="coinsD" class="mat-elevation-z8" *ngIf="isReady">
+  <ng-container matColumnDef="#">
+    <th mat-header-cell *matHeaderCellDef>#</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.market_data.market_cap_rank }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Coin">
+    <th mat-header-cell *matHeaderCellDef>coin</th>
+    <td mat-cell *matCellDef="let element">
+      <img [src]="element.image.thumb" class="coin-image" />{{ element.name }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Price">
+    <th mat-header-cell *matHeaderCellDef>
+      Price<mat-icon class="info-icon" matTooltip="current price in usd"
+        >info</mat-icon
+      >
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.market_data.current_price["usd"] }}$
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="total_supply">
+    <th mat-header-cell *matHeaderCellDef>
+      total supply<mat-icon
+        class="info-icon"
+        matTooltip="total supply of the coin till no new coin is minted"
+        >info</mat-icon
+      >
+    </th>
+    <td mat-cell *matCellDef="let element">
+      {{ nFormatter(element.market_data.total_supply, 1) }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="last24h">
+    <th mat-header-cell *matHeaderCellDef>last 24h</th>
+    <td mat-cell *matCellDef="let element">
+      <span
+        [ngClass]="
+          element.market_data.price_change_percentage_24h > 0
+            ? 'green-text'
+            : 'red-text'
+        "
+        >{{ element.market_data.price_change_percentage_24h }}</span
+      >
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="last60d">
+    <th mat-header-cell *matHeaderCellDef>last 60d</th>
+    <td mat-cell *matCellDef="let element">
+      <span
+        [ngClass]="
+          element.market_data.price_change_percentage_60d > 0
+            ? 'green-text'
+            : 'red-text'
+        "
+        >{{ element.market_data.price_change_percentage_60d }}</span
+      >
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+  <!-- <tr>
+        <th><span>#</span></th>
+        <th><span>Coin</span></th>
+        <th><span>price</span></th>
+        <th><span>last 24h</span></th>
+        <th><span>last 60d</span></th>
+        <th><span>total supply</span></th>
+   </tr>
+   <tr *ngFor="let cn of (coinsD|async) as response">
+        <td><span>{{cn.market_data.market_cap_rank}}</span></td>
+        <td><span>{{cn.name}}</span></td>
+        <td><span>{{cn.market_data.current_price['usd']|currency:"usd"}}</span></td>
+        <td><span>{{cn.market_data.price_change_percentage_24h}}</span></td>
+        <td><span>{{cn.market_data.price_change_percentage_60d}}</span></td>
+        <td><span>{{cn.market_data.total_supply}}</span></td>
+    </tr> -->
+  <!-- <div *ngFor="let cn of (coinsD|async) as response">
+    <span>{{cn.id}}</span>
+</div> -->
+</table>
