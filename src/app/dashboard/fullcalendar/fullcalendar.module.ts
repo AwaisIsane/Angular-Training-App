@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../material/material.module';
 import { DialogComponent } from './dialog/dialog.component';
@@ -8,11 +8,10 @@ import { FullcalendarComponent } from './fullcalendar.component';
 
 
 @NgModule({
- // schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     DialogComponent,
     FullcalendarComponent
-
   ],
   imports: [
     CommonModule,
@@ -21,7 +20,8 @@ import { FullcalendarComponent } from './fullcalendar.component';
 
   ],
   exports:[
+    DialogComponent,
     FullcalendarComponent
   ]
 })
-export class FullCalendarModule { }
+export class FullcalendarModule { }

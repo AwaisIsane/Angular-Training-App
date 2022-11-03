@@ -20,6 +20,5 @@ export class DialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("dialog")
   }
 }

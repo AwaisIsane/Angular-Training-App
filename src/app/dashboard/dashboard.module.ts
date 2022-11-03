@@ -9,11 +9,10 @@ import { CalculatorbtcComponent } from './calculatorbtc/calculatorbtc.component'
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { DraglistComponent } from './draglist/draglist.component';
 import { HistoricalModule } from './historical/historical.module';
-import { FullCalendarModule } from './fullcalendar/fullcalendar.module';
-
+import { FullcalendarModule } from './fullcalendar/fullcalendar.module';
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  //schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     DashboardComponent,
     CurrentComponent,
@@ -26,7 +25,7 @@ import { FullCalendarModule } from './fullcalendar/fullcalendar.module';
     DashboardRoutingModule,
     MaterialModule,
     HistoricalModule,
-    FullCalendarModule
+    FullcalendarModule
   ],
   exports:[
     DashboardComponent

@@ -22,9 +22,9 @@ import { userListReducer } from './manage/state/manage.reducer';
 import { NgChartsModule } from 'ng2-charts';
 import { httpInterceptorProviders } from './httpinterceptor';
 import { DashboardModule } from './dashboard/dashboard.module';
+// import { FullcalendarModule } from './fullcalendar/fullcalendar.module';
 
 @NgModule({
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     // DispcardComponent, component not in use
@@ -41,6 +41,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     HttpClientModule,
     MaterialModule,
     DashboardModule,
+//    FullcalendarModule,
     EffectsModule.forRoot([LoginEffects,ManageEffects]),
     StoreModule.forRoot({cred:loginReducer,UserList:userListReducer}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
