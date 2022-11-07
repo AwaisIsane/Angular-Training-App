@@ -17,20 +17,22 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationformComponent },
   {path:'manage',component:ManageComponent},
-  {
-    path: '',
-    component: DashboardComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', pathMatch: 'full', component: LandingpageComponent },
-      { path: 'histodata', component: CryptodisplayComponent },
-      { path: 'current', component: CurrentComponent },
-      { path: 'calendar', component: FullcalendarComponent },
-      { path: 'btccalc', component: CalculatorbtcComponent },
-      { path: 'users', component: DraglistComponent },
-      { path: '**', component: ErrorpageComponent },
-    ],
-  },
+  //  {
+  //   path: '',
+  //    //component: DashboardComponent,
+  //    loadChildren:()=> import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+  //    canActivate: [AuthGuard],
+  //    component:DashboardComponent
+  // //   children: [
+  // //     { path: '', pathMatch: 'full', component: LandingpageComponent },
+  // //     { path: 'histodata', component: CryptodisplayComponent },
+  // //     { path: 'current', component: CurrentComponent },
+  // //     { path: 'calendar', component: FullcalendarComponent },
+  // //     { path: 'btccalc', component: CalculatorbtcComponent },
+  // //     { path: 'users', component: DraglistComponent },
+  // //     { path: '**', component: ErrorpageComponent },
+  // //   ],
+  //  },
 ];
 
 @NgModule({
